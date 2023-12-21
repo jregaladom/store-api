@@ -1,4 +1,5 @@
 const { faker } = require('@faker-js/faker');
+const { boom }
 
 class ProductService {
   constructor() {
@@ -69,12 +70,8 @@ class ProductService {
 
   async deleteProduct(id) {
     this.eleiminarglgo();
-    //try {
     this.products = this.products.filter(product => product.id !== id);
     return { message: 'deleted' };
-    // } catch (error) {
-    //   return { message: 'error' };
-    // }
   }
 }
 
