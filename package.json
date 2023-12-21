@@ -1,0 +1,24 @@
+{
+  "name": "store_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "lint": "eslint"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^8.3.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "nodemon": "^3.0.2"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
