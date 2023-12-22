@@ -1,7 +1,8 @@
 const express = require('express');
 const routerAPI = require('./routes');
 
-const { logErrors, errorHandler } = require('./middlewares/error.handler');
+const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
+const validatorHandler = require('./middlewares/validator.handler');
 
 const port = 3003;
 
@@ -24,7 +25,9 @@ app.get('/', (req, res) => {
 
 routerAPI(app);
 
+app.use(validatorHandler);
 app.use(logErrors);
+app.use(boomErrorHandler);
 app.use(errorHandler);
 
 app.listen(port, () => {
