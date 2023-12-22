@@ -11,17 +11,18 @@ const app = express();
 
 app.use(express.json());
 
-const whitelist = ['http://localhost:8080', 'https://myapp.com'];
-const options = {
-  origin: (origin, callback) => {
-    if (whitelist.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('No permitido'));
-    }
-  },
-};
-app.use(cors(options));
+// const whitelist = ['http://localhost:3003', 'https://myapp.com'];
+// const options = {
+//   origin: (origin, callback) => {
+//     if (whitelist.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('No permitido'));
+//     }
+//   },
+// };
+// app.use(cors(options));
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
