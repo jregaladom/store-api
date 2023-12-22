@@ -14,7 +14,7 @@ app.use(express.json());
 // const whitelist = ['http://localhost:3003', 'https://myapp.com'];
 // const options = {
 //   origin: (origin, callback) => {
-//     if (whitelist.includes(origin)) {
+//     if (whitelist.includes(origin) || !origin) {
 //       callback(null, true);
 //     } else {
 //       callback(new Error('No permitido'));
