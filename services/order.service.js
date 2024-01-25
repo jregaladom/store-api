@@ -1,8 +1,8 @@
-const boom = require('@hapi/boom');
+// const boom = require('@hapi/boom');
 
 class OrderService {
 
-  constructor(){
+  constructor() {
   }
   async create(data) {
     return data;

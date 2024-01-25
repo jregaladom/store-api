@@ -7,16 +7,14 @@ const _user = encodeURIComponent(config.db.dbUser);
 const _password = encodeURIComponent(config.db.dbPassword);
 
 const urlConnection = `postgres://${_user}:${_password}@${config.db.dbAddress}:${config.db.dbPort}/${config.db.dbName}`;
+//const urlConnection = `mysql://${_user}:${_password}@${config.db.dbAddress}:${config.db.dbPort}/${config.db.dbName}`;
 
 const sequelize = new Sequelize(urlConnection, {
   dialect: 'postgres',
+  //dialect: 'mysql',
   logging: true
 });
 
 setupModels(sequelize);
-
-sequelize.sync({ force: false }).then(() => {
-  console.log('Tablas sincronizadas');
-});
 
 module.exports = sequelize;

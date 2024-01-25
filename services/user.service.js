@@ -12,7 +12,14 @@ class UserService {
   }
 
   async find() {
-    const user = await models.User.findAll();
+    const user = await models.User.findAll({
+      include: [
+        {
+          association: 'customer',
+          attributes: ['id', 'name', 'lastName', 'phone']
+        }
+      ]
+    });
     return user;
   }
 
