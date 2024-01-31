@@ -12,6 +12,11 @@ const PRODUCT_SCHEMA = {
     allowNull: false,
     field: PRODUCT_PK_NAME
   },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    unique: true
+  },
   price: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: true,

@@ -1,12 +1,12 @@
 // const { faker } = require('@faker-js/faker');
-// const boom = require('@hapi/boom');
+const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
 
 // const pool = require('./../libs/postgres.pool');
 // const sequelize = require('./../libs/sequelize');
 
 const { CATEGORY_TABLE } = require('../db/models/category.model');
-
+const CategoryService = require('./category.service');
 
 class ProductService {
   constructor() {
@@ -14,11 +14,37 @@ class ProductService {
 
 
   async create(data) {
-    const reponse = await models.Product.create(data, {
-      include: [CATEGORY_TABLE]
-    });
+    const categoryService = new CategoryService();
+    const name = categoryService.findOne(data.categoryId);
+    let reponse = null;
+    if (!name) {
+      reponse = await models.Product.create(data, {
+        include: [CATEGORY_TABLE]
+      });
+    } else {
+      reponse = await models.Product.create(data);
+    }
+
     return reponse;
   }
+
+  async find() {
+    const products = await models.Product.findAll({
+      include: ['category']
+    });
+    return products;
+  }
+
+  async findOne(id) {
+    const category = await models.Product.findByPk(id, {
+      include: ['category']
+    });
+    if (!category) {
+      throw boom.notFound('Product no encontrada');
+    }
+    return category;
+  }
+
 
   // async find() {
   //   const query = 'SELECT * FROM tasks';
