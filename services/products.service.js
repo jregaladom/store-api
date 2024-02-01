@@ -47,13 +47,13 @@ class ProductService {
       options.where.price = price;
     }
 
-    if (price_min) {
-      options.where.price = { [Op.gt]: price_min };
+    if (price_min && price_max) {
+      options.where.price = {
+        [Op.gte]: price_min,
+        [Op.lte]: price_max
+      };
     }
 
-    if (price_max) {
-      options.where.price = { [Op.lte]: price_max };
-    }
 
     const products = await models.Product.findAll(options);
     return products;
