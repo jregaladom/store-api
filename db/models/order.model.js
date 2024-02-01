@@ -29,11 +29,23 @@ const ORDER_SCHEMA = {
     field: 'create_at',
     defaultValue: DataTypes.NOW
   },
+  total: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      if (this.products.length > 0) {
+        return this.products.reduce((total, item) => {
+          return total + (item.price * item.OrderProduct.amount);
+        }, 0);
+      }
+      return 0;
+    }
+  }
 };
 
-class Category extends Model {
+class Order extends Model {
   static associate(models) {
     this.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customerId' });
+    this.belongsToMany(models.Product, { as: 'products', through: models.OrderProduct, foreignKey: 'orderId', otherKey: 'productId' });
   }
 
   static config(sequelize) {
@@ -47,4 +59,4 @@ class Category extends Model {
 }
 
 
-module.exports = { Category, ORDER_SCHEMA, ORDER_TABLE, ORDER_PK_NAME };
+module.exports = { Order, ORDER_SCHEMA, ORDER_TABLE, ORDER_PK_NAME };

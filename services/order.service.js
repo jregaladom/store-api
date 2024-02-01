@@ -7,6 +7,14 @@ class OrderService {
   constructor() {
   }
 
+
+  async addItem(data) {
+    const newOrderProduct = await models.OrderProduct.create(
+      data
+    );
+    return newOrderProduct;
+  }
+
   async create(data) {
     const newOrder = await models.Order.create(data);
     return newOrder;
@@ -22,7 +30,10 @@ class OrderService {
         {
           association: 'customer',
           include: ['user']
-        }
+        },
+
+        'products',
+
       ]
     });
     return order;
