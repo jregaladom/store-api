@@ -4,7 +4,7 @@ var cors = require('cors')
 
 const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler } = require('./middlewares/error.handler');
 const validatorHandler = require('./middlewares/validator.handler');
-
+const { checkApiKeyHandler } = require('./middlewares/auth.handler');
 const port = 3003;
 
 const app = express();
@@ -27,6 +27,12 @@ app.use(cors());
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
+
+app.get('/nueva-ruta',
+  checkApiKeyHandler,
+  (req, res) => {
+    res.send('Hello, Im new route');
+  });
 
 routerAPI(app);
 
