@@ -23,7 +23,7 @@ app.use(express.json());
 // };
 // app.use(cors(options));
 app.use(cors());
-
+require('./utils/auth');
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
