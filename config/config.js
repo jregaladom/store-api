@@ -12,6 +12,7 @@ const config = {
     dbAddress: process.env.DB_ADDRES,
   },
   API_KEY: process.env.API_KEY,
+  AUTH_JWT_SECRET: process.env.AUTH_JWT_SECRET,
 }
 
 module.exports = { config };

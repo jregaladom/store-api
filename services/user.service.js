@@ -47,25 +47,6 @@ class UserService {
     return user;
   }
 
-  async validPassword(email, password) {
-    const user = await models.User.findOne(
-      {
-        where: {
-          email: email,
-        }
-      }
-    );
-
-    if (!user) {
-      throw boom.notFound('Usuario no encontrado');
-    }
-
-    const isPassword = await bcrypt.compare(password, user.password);
-    return isPassword;
-  }
-
-
-
   async update(id, changes) {
     const user = await this.findOne(id);
     const response = await user.update(changes);

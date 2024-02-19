@@ -2,8 +2,9 @@ const express = require('express');
 
 const CategoryService = require('./../services/category.service');
 const validatorHandler = require('./../middlewares/validator.handler');
+const { checkRoles } = require('./../middlewares/auth.handler');
 const { createCategorySchema, updateCategorySchema, getCategorySchema } = require('./../schemas/category.schema');
-
+const passport = require('passport');
 const router = express.Router();
 const service = new CategoryService();
 
@@ -30,7 +31,9 @@ router.get('/:id',
 );
 
 router.post('/',
+  passport.authenticate('jwt', { session: false }),
   validatorHandler(createCategorySchema, 'body'),
+  checkRoles(['admin', 'seller']),
   async (req, res, next) => {
     try {
       const body = req.body;
@@ -63,7 +66,7 @@ router.delete('/:id',
     try {
       const { id } = req.params;
       await service.delete(id);
-      res.status(201).json({id});
+      res.status(201).json({ id });
     } catch (error) {
       next(error);
     }
