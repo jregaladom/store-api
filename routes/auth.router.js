@@ -10,7 +10,7 @@ router.post('/login',
   async (req, res, next) => {
     try {
       const payload = {
-        sub: req.user._id,
+        sub: req.user.id,
         role: req.user.role
       };
       const token = jwt.sign(payload, config.AUTH_JWT_SECRET);
